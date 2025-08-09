@@ -61,11 +61,11 @@ def update_project_name_in_files(project_name, dest):
     }
     for root, _, files in os.walk(dest):
         for fname in files:
-            if fname.endswith((".cs", ".csproj", ".sln", ".json", ".xml")):
+            if fname.endswith((".cs", ".csproj", ".sln", ".json", ".xml", ".manifest")):
                 print(f"Updating name in file: {fname}")
                 replace_in_file(os.path.join(root, fname), replacements)
 
-def udate_guids_in_files(dest):
+def update_guids_in_files(dest):
     for root, _, files in os.walk(dest):
         for fname in files:
             if fname.endswith((".sln")):
@@ -87,7 +87,7 @@ def update_project(project_name, dest):
     update_directory_names(project_name, dest)
     update_file_names(project_name, dest)
     update_project_name_in_files(project_name, dest)
-    udate_guids_in_files(dest)
+    update_guids_in_files(dest)
 
 def main():
     args = parse_args()
