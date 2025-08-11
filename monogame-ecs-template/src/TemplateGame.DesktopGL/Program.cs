@@ -9,6 +9,7 @@ public static class Program
     
     public static void Main(string[] args)
     {
+        Logger.Info("Starting...");
         var game = new TemplateGameGame();
         try
         {
@@ -21,6 +22,7 @@ public static class Program
         finally
         {
             game.Dispose();
+            Logger.Info("Exiting...");
         }
     }
 }

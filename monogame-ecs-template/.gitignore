@@ -1,0 +1,9 @@
+src/*/bin
+src/*/obj
+src/*/Content/bin
+src/*/Content/obj
+src/*/pipeline-references
+.idea
+.vscode
+*.user
+*.binlog
