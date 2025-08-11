@@ -1,8 +1,6 @@
 {
     "files.exclude": {
-        "**/*template": true
     },
     "search.exclude": {
-        "**/*template": true
     }
 }
