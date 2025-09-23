@@ -1,23 +1,43 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.ECS;
 using MonoGame.Extended.Screens;
 using NLog;
+using TemplateGame.Core.Data;
+using TemplateGame.Core.ECS.Entities;
+using TemplateGame.Core.ECS.Systems;
+using TemplateGame.Core.Services;
 
 namespace TemplateGame.Core.Screens;
 
-public class PlayScreen(Game game) : GameScreen(game)
+public class PlayScreen : GameScreen
 {
     private readonly Logger _logger = LogManager.GetCurrentClassLogger();
-    private World _world;
+    private readonly World _world;
+    private readonly InputManager _inputs;
 
-    public override void LoadContent()
+    public PlayScreen(Game game) : base(game)
     {
+        var gameState = new GameState();
+
+        var bindings = new[]
+        {
+            InputBinding.FromKeys(InputActions.Fullscreen, Keys.LeftAlt, Keys.Enter),
+            InputBinding.FromKeys(InputActions.Fullscreen, Keys.RightAlt, Keys.Enter)
+        };
+
+        _inputs = new InputManager(bindings);
+
+        var entityFactory = new EntityFactory();
+
+        entityFactory.Initialize(_world);
+
         _logger.Info("Building world systems");
 
-        var worldBuilder = new WorldBuilder();
-        
-        _world = worldBuilder.Build();
-        
+        _world = new WorldBuilder()
+            .AddSystem(new InputSystem(_inputs, Game))
+            .Build();
+
         _logger.Info("Building world entities");
     }
 
@@ -28,6 +48,7 @@ public class PlayScreen(Game game) : GameScreen(game)
 
     public override void Update(GameTime gameTime)
     {
+        _inputs.Update();
         _world.Update(gameTime);
     }
 
