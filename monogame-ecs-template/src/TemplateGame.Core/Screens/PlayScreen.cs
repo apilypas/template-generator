@@ -30,13 +30,13 @@ public class PlayScreen : GameScreen
 
         var entityFactory = new EntityFactory();
 
-        entityFactory.Initialize(_world);
-
         _logger.Info("Building world systems");
 
         _world = new WorldBuilder()
             .AddSystem(new InputSystem(_inputs, Game))
             .Build();
+
+        entityFactory.Initialize(_world);
 
         _logger.Info("Building world entities");
     }
