@@ -9,7 +9,7 @@ namespace TemplateGame.DesktopGL;
 
 public class TemplateGameGame : Game
 {
-    private GraphicsDeviceManager _graphics;
+    private readonly GraphicsDeviceManager _graphics;
     private ScreenManager _screenManager;
 
     public TemplateGameGame()
