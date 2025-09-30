@@ -11,11 +11,15 @@ public class InputSystem : EntityUpdateSystem
 {
     private readonly InputManager _inputs;
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
+    private readonly GameWindow _window;
+    private int _windowWidth = Constants.VirtualScreenWidth * 2;
+    private int _windowHeight = Constants.VirtualScreenHeight * 2;
 
-    public InputSystem(InputManager inputs, Game game) 
+    public InputSystem(InputManager inputs, GameWindow window, Game game)
         : base(Aspect.All())
     {
         _inputs = inputs;
+        _window = window;
         _graphicsDeviceManager = game.Services.GetService<GraphicsDeviceManager>();
     }
 
@@ -31,13 +35,15 @@ public class InputSystem : EntityUpdateSystem
             {
                 if (_graphicsDeviceManager.IsFullScreen)
                 {
-                    _graphicsDeviceManager.PreferredBackBufferWidth = Constants.VirtualScreenWidth;
-                    _graphicsDeviceManager.PreferredBackBufferHeight = Constants.VirtualScreenHeight;
+                    _graphicsDeviceManager.PreferredBackBufferWidth = _windowWidth;
+                    _graphicsDeviceManager.PreferredBackBufferHeight = _windowHeight;
                     _graphicsDeviceManager.IsFullScreen = false;
                     _graphicsDeviceManager.ApplyChanges();
                 }
                 else
                 {
+                    _windowWidth = _window.ClientBounds.Width;
+                    _windowHeight = _window.ClientBounds.Height;
                     var displayMode = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
                     _graphicsDeviceManager.PreferredBackBufferWidth = displayMode.Width;
                     _graphicsDeviceManager.PreferredBackBufferHeight = displayMode.Height;

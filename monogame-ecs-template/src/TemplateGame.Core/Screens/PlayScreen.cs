@@ -33,7 +33,7 @@ public class PlayScreen : GameScreen
         _logger.Info("Building world systems");
 
         _world = new WorldBuilder()
-            .AddSystem(new InputSystem(_inputs, Game))
+            .AddSystem(new InputSystem(_inputs, Game.Window, Game))
             .Build();
 
         entityFactory.Initialize(_world);
