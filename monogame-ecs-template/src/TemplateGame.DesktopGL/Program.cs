@@ -17,7 +17,7 @@ public static class Program
         }
         catch (Exception ex)
         {
-            Logger.Fatal(ex);
+            Logger.Fatal(ex.ToString());
         }
         finally
         {
